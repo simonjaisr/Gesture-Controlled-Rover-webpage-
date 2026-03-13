@@ -13,7 +13,7 @@ fetchData();
 },[]);
 
 const fetchData = async ()=>{
-const res = await axios.get("http://localhost:5000/api/sensor");
+const res = await axios.get("https://gesture-controlled-rover-webpage.onrender.com/api/sensor");
 setData(res.data.slice(-20).reverse());
 };
 
