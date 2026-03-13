@@ -26,11 +26,18 @@ Legend,
 Tooltip
 );
 
+type SensorReading = {
+field1: number;
+field2: number;
+field3: number;
+created_at: string;
+};
+
 function Dashboard(){
 
 const navigate = useNavigate();
 
-const [data,setData] = useState([]);
+const [data,setData] = useState<SensorReading[]>([]);
 const [dark,setDark] = useState(true);
 
 useEffect(()=>{
@@ -51,7 +58,7 @@ setData(res.data.slice(-20));
 
 };
 
-const latest = data[data.length-1] || {};
+const latest = data[data.length-1] || ({} as SensorReading);
 
 const labels = data.map(d =>
 new Date(d.created_at).toLocaleTimeString()
@@ -138,6 +145,7 @@ return(
 <button
 className="btn"
 onClick={()=>setDark(!dark)}
+
 >
 
 {dark ? "Light Mode" : "Dark Mode"}
@@ -147,6 +155,7 @@ onClick={()=>setDark(!dark)}
 <button
 className="btn"
 onClick={()=>navigate("/readings")}
+
 >
 
 Last 20 Readings
