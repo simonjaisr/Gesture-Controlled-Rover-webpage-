@@ -3,10 +3,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 
-function Readings(){
+type SensorReading = {
+field1: number;
+field2: number;
+field3: number;
+created_at: string;
+};
+
+function Readings() {
 
 const navigate = useNavigate();
-const [data,setData] = useState([]);
+const [data,setData] = useState<SensorReading[]>([]);
 
 useEffect(()=>{
 fetchData();
@@ -17,7 +24,7 @@ const res = await axios.get("https://gesture-controlled-rover-webpage.onrender.c
 setData(res.data.slice(-20).reverse());
 };
 
-const latest = data[0] || {};
+const latest = data[0] || ({} as SensorReading);
 
 return(
 
@@ -28,8 +35,7 @@ return(
 <h1>📊 Last 20 Sensor Readings</h1>
 
 <button className="btnBack" onClick={()=>navigate("/")}>
-⬅ Back to Dashboard
-</button>
+⬅ Back to Dashboard </button>
 
 </div>
 
